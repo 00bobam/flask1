@@ -1,6 +1,17 @@
 from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm
+#from forms import RegistrationForm
 #from lmsloader import Lmsloader
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
+
+class RegistrationForm(FlaskForm):
+    username =  StringField("아이디",
+                            validators=[DataRequired(), Length(min=2, max=20)])
+    password = PasswordField("비밀번호",
+                            validators=[DataRequired(), Length(min=2, max=20)])
+    submit = SubmitField("접속")
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = 'd2707fea9778e085491e2dbbc73ff30e'
